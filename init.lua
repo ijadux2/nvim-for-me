@@ -342,5 +342,3 @@ vim.opt.winblend = 50  -- blur for nvim as window
 -- Keybindings
 vim.keymap.set("n", "<leader><leader>", ":Telescope find_files<CR>")
 vim.keymap.set("n", "<leader>t", ":ToggleTerm<CR>")
-
-
