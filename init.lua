@@ -25,9 +25,23 @@ require("lazy").setup({
         indent = { enable = true },
       })
     end,
-  },
+   },
 
-  -- Catppuccin theme
+
+
+     -- Mini indentscope for animations
+     {
+       "echasnovski/mini.indentscope",
+       version = false,
+       config = function()
+         require("mini.indentscope").setup({
+           symbol = "│",
+           options = { try_as_border = false },
+         })
+       end,
+     },
+
+     -- Catppuccin theme
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -63,7 +77,21 @@ require("lazy").setup({
     "nvim-tree/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      require("nvim-tree").setup()
+      require("nvim-tree").setup({
+        renderer = {
+          indent_markers = {
+            enable = true,
+          },
+          icons = {
+            show = {
+              file = true,
+              folder = true,
+              folder_arrow = true,
+              git = true,
+            },
+          },
+        },
+      })
       vim.keymap.set("n", "\\", ":NvimTreeToggle<CR>")
     end,
   },
@@ -126,6 +154,7 @@ require("lazy").setup({
       "hrsh7th/cmp-cmdline",
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-nvim-lsp",
+      "onsails/lspkind.nvim",
     },
     config = function()
       local cmp = require("cmp")
@@ -142,11 +171,19 @@ require("lazy").setup({
           ["<C-e>"] = cmp.mapping.abort(),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
         }),
+        formatting = {
+          format = require("lspkind").cmp_format({
+            mode = "symbol_text",
+            maxwidth = 50,
+            ellipsis_char = "...",
+          }),
+        },
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
         }, {
           { name = "buffer" },
+          { name = "path" },
         }),
       })
     end,
@@ -168,17 +205,19 @@ require("lazy").setup({
       local cmp = require("cmp")
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
     end,
-  },
+   },
 
-  -- LSP
-  {
-    "williamboman/mason.nvim",
-    config = function()
-      require("mason").setup()
-    end,
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
+   -- LSP
+   {
+     "williamboman/mason.nvim",
+     version = "*",
+     config = function()
+       require("mason").setup()
+     end,
+   },
+   {
+     "williamboman/mason-lspconfig.nvim",
+     version = "*",
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = { "lua_ls", "pyright", "zls", "nil_ls" },
@@ -209,9 +248,33 @@ require("lazy").setup({
         },
       })
     end,
-  },
-})
+   },
 
+   -- Formatting with conform
+   {
+     "stevearc/conform.nvim",
+     config = function()
+       require("conform").setup({
+         formatters_by_ft = {
+           lua = { "stylua" },
+           python = { "black" },
+           javascript = { "prettier" },
+           typescript = { "prettier" },
+           json = { "prettier" },
+           css = { "prettier" },
+           html = { "prettier" },
+           yaml = { "prettier" },
+           markdown = { "prettier" },
+         },
+         format_on_save = {
+           timeout_ms = 500,
+           lsp_fallback = true,
+         },
+       })
+     end,
+   },
+
+})
 -- Basic Neovim settings
 vim.g.mapleader = " "
 vim.opt.number = true
@@ -221,6 +284,7 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.termguicolors = true
+vim.opt.guifont = "JetBrainsMono Nerd Font:h15"
 vim.opt.cursorline = true
 vim.opt.pumblend = 50 -- blur for nvim
-vim.opt.winblend = 50  -- blur for nvim as window 
+vim.opt.winblend = 50  -- blur for nvim as window
