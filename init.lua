@@ -26,17 +26,6 @@ require("lazy").setup({
       })
     end,
    },
-      -- Mini indentscope for animations
-      {
-        "echasnovski/mini.indentscope",
-        version = false,
-        config = function()
-          require("mini.indentscope").setup({
-            symbol = "│",
-            options = { try_as_border = false },
-          })
-        end,
-      },
 
      -- Catppuccin theme
   {
@@ -113,6 +102,18 @@ require("lazy").setup({
   {
     "rcarriga/nvim-notify",
     config = function()
+      require("notify").setup({
+        stages = "fade_in_slide_out",
+        timeout = 3000,
+        background_colour = "#1e1e2e",
+        icons = {
+          ERROR = "",
+          WARN = "",
+          INFO = "",
+          DEBUG = "",
+          TRACE = "",
+        },
+      })
       vim.notify = require("notify")
     end,
   },
@@ -141,7 +142,7 @@ Wake up to reality !
  -- ijadux2
           ]],
           keys = {
-            { icon = " ", key = "e", desc = "New file", action = ":ene | startinsert" },
+            { icon = " ", key = "n", desc = "New file", action = ":ene | startinsert" },
             { icon = "󰈞 ", key = "f", desc = "Find file", action = ":lua Snacks.dashboard.pick('files')" },
             { icon = " ", key = "r", desc = "Recent files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
             { icon = " ", key = "s", desc = "Settings", action = ":e $MYVIMRC" },
@@ -186,6 +187,9 @@ Wake up to reality !
 
   -- Web devicons for icons
   "nvim-tree/nvim-web-devicons",
+
+  --coc.nvim 
+   'neoclide/coc.nvim',
 
   -- Which-key for command palette
   {
@@ -338,6 +342,7 @@ vim.opt.guifont = "JetBrainsMono Nerd Font:h15"
 vim.opt.cursorline = true
 vim.opt.pumblend = 50 -- blur for nvim
 vim.opt.winblend = 50  -- blur for nvim as window
+vim.opt.showtabline = 0
 
 -- Keybindings
 vim.keymap.set("n", "<leader><leader>", ":Telescope find_files<CR>")
