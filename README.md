@@ -4,7 +4,7 @@ A modern, feature-rich Neovim configuration with Lazy as the package manager, Ca
 
 ## Preview
 
-![Screenshot](screenshot_20251126_204707.png)
+![Screenshot](screenshot_20251127_162119.png)
 
 ## Features
 
