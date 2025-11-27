@@ -39,6 +39,9 @@ require("lazy").setup({
 				integrations = {
 					nvimtree = true,
 					notify = true,
+					lazy = true,
+					lsp = true,
+					meson = true,
 				},
 			})
 			vim.cmd.colorscheme("catppuccin-mocha")
@@ -136,9 +139,8 @@ require("lazy").setup({
 ▐█▌▐▌▐█▌▐█ ▪▐▌██. ██ ▐█▄█▌▪▐█·█▌
 ▀▀▀ ▀▀▀• ▀  ▀ ▀▀▀▀▀•  ▀▀▀ •▀▀ ▀▀
 
-
-1. Would you rather die for your enemies or live for yourself?
-           -- Madara Uchiha
+Where illusions meet relaity !
+           -- ijadux2
           ]],
 					keys = {
 						{ icon = " ", key = "n", desc = "New file", action = ":ene | startinsert" },
