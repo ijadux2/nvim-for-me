@@ -670,6 +670,7 @@ vim.opt.pumblend = 50 -- blur for nvim
 vim.opt.winblend = 50 -- blur for nvim as window
 vim.opt.showtabline = 2
 vim.opt.linebreak = true
+vim.opt.guicursor = "n-v-c-i:block"
 -- Keybindings
 vim.keymap.set("n", "<leader><leader>", ":Telescope find_files<CR>")
 vim.keymap.set("n", "<leader>t", ":ToggleTerm<CR>")
